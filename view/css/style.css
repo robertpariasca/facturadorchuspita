@@ -1,0 +1,249 @@
+
+body {
+  position: fixed;
+  width: 21cm;  
+  height: 29.7cm; 
+  margin: 0 auto; 
+  font-family: Arial, sans-serif; 
+  font-size: 10px; 
+  font-family: Arial;
+}
+
+
+  .ultima_tabla td.titulo {
+  border:  1px   solid black;
+}
+
+
+.tabla_cabecera{
+
+  font-size: 12px;
+  color: black;
+  font-stretch: bold ;
+  font-weight: bold;
+  border-bottom:   1px   dashed  black;
+
+}
+
+
+
+.tabla_cabecera td.tiempo_chico{
+font-size: 10px;
+color: black solid;
+width: 16%;
+}
+
+
+
+main{
+  
+  display: inline-block;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+#logo {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+
+.info_derecha td.arriba{
+  border: 1px solid black;
+  border-top: 1px solid ;
+  border-right: 1px solid ;
+  border-left: 1px solid ;
+  border-bottom: none;
+}
+
+.info_derecha td.sinpad{
+  padding: 0;
+  border-left: 1px solid ;
+  border-bottom: 1px solid ;
+  border-right: 1px solid ;
+  width: 230;
+}
+
+.info_derecha td.medio{
+  padding: 0;
+  border-left: 1px solid ;
+  border-right: 1px solid ;
+  width: 230;
+}
+
+table.info_derecha{
+  border : 0 ;
+  border-collapse:collapse;
+
+}
+
+.info_derecha td {
+border : 1;
+font-size: 11px;
+text-align: center;
+border:1px solid; 
+border-bottom:1;
+border-top: 1;
+border-left: 1;
+border-right: 1;
+  color: black;
+
+border-top-width: 50%;
+font-stretch: bold;
+}
+
+.top0{
+border-top:1px solid black;  
+
+}
+#logo img {
+  width: 80px;
+}
+
+
+#project {
+  float: left;
+}
+
+.info_medio{
+  margin-bottom: 0px;
+  border: 1px solid black;
+      display: inline-block;
+      height: 400px;
+}
+
+table.info_medio td{
+text-align: left;
+font-size: 9px;
+
+
+}
+
+.derecha{
+padding-right: 0;
+right: 0;
+text-align: right;
+padding-left: 300px;
+}
+
+
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;        
+}
+
+.tabla_venta{
+  width: 100%;
+    margin-bottom: 0px;
+  border-bottom: none;
+border-spacing: 0 !important;
+  border-collapse: collapse !important;
+
+}
+
+
+.tabla_venta tr {
+
+  width: 50px;
+
+}
+
+
+
+.tabla_venta th,
+.tabla_venta td {
+  text-align: center;
+  padding: 0 !important;
+
+}
+
+.tabla_venta th {
+  padding: 5px 20px;
+  color: #333;
+  border: 1px solid black;
+  white-space: nowrap;    
+  font-weight: bold;
+}
+
+.tabla_venta .service,
+.tabla_venta .desc {
+  text-align: left;
+}
+
+.tabla_venta td {
+  padding: 4px;
+border-left: 1px solid black;
+border-right:  1px solid black;
+  text-align: right;
+
+}
+
+.tabla_venta td.service,
+.tabla_venta td.desc {
+  vertical-align: top;
+}
+
+.tabla_venta td.unit,
+.tabla_venta td.qty,
+.tabla_venta td.total {
+  font-size: 1.2em;
+}
+
+.tabla_venta td.grand {
+  border-top: 1px solid #5D6975;;
+}
+
+#notices .notice {
+  color: #5D6975;
+  font-size: 1.2em;
+}
+
+
+.total_letras{
+  font-size: 11px;
+}
+
+
+
+.ultima_tabla{
+font-size: 1.1em;
+color: black;
+}
+
+
+
+.tabla_venta td.resultado{
+border-top:   1px   dashed  black;
+border-left: none;
+border-right: none;
+border-bottom: none;
+
+}
+
+
+.ultima_tabla_2{
+  width: 100%;
+    margin-bottom: 0px;
+  border-bottom: none;
+border-spacing: 0 !important;
+  border-collapse: collapse !important;
+ 
+}
