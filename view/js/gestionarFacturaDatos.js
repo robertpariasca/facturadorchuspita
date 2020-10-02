@@ -71,6 +71,8 @@ function autocomplete(inp, arr) {
           arr[i].cod_producto +
           "|" +
           arr[i].precio +
+          "|" +
+          arr[i].inafecto +
           "' value='" +
           arr[i].descripcion +
           "'>";
@@ -81,6 +83,7 @@ function autocomplete(inp, arr) {
           var valores = this.getElementsByTagName("input")[0].name.split("|");
           document.getElementById("codproducto").value = valores[0];
           document.getElementById("textPrecioProducto").value = valores[1];
+          document.getElementById("txtinafecto").value = valores[2];
           /*close the list of autocompleted values,
                   (or any other open lists of autocompleted values:*/
           closeAllLists();
@@ -163,6 +166,7 @@ $("#agregarDetalleProm").click(function () {
   var textCantProducto = $("#textCantProducto").val();
   var textPrecioProducto = $("#textPrecioProducto").val();
   var textTotal = (parseFloat(textCantProducto) * parseFloat(textPrecioProducto)).toFixed(2);
+  var inafecto = $("#txtinafecto").val();
 
   if (textproducto == "" || codproducto == "" || textCantProducto == "") {
     alert("Por favor, completar todos los campos");
@@ -183,6 +187,9 @@ $("#agregarDetalleProm").click(function () {
       '</td><td class="totalproducto" align="right">' +
       textTotal +
       "</td>" +
+      '</td><td class="inafecto" style="display:none;">' +
+      inafecto +
+      "</td>" +
       '<td><div class="widget-content-right widget-content-actions">' +
       '<button type="button" name="deleteproductos" class="border-0 btn-transition btn btn-outline-danger deleteproductos"><i class="fa fa-trash-alt"></i></button></div></td></tr>';
 
@@ -200,14 +207,20 @@ $(document).on("click", ".deleteproductos", function () {
   sumardetalle();
 });
 function sumardetalle() {
-  var sumatotal = 0;
+  var sumatotal = 0.00;
   $("#detprod tbody>tr").each(function () {
     //alert(codpromocion);
     var totalprod = $(this).find(".totalproducto").html();
 
-    sumatotal = parseFloat(sumatotal) + parseFloat(totalprod);
+    if (totalprod === undefined){
+      
+    }else{
+      sumatotal = parseFloat(sumatotal) + parseFloat(totalprod);
+    }
+
+    
   });
-  document.getElementById("texttotalproducto").value = sumatotal;
+  document.getElementById("texttotalproducto").value = parseFloat(sumatotal).toFixed(2);
 }
 
 $('input:radio[name="tipodoc"]').change(

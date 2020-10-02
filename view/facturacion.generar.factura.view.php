@@ -162,6 +162,7 @@ $_POST["s_usuario"] = $dniSesion;
                                                                 <input id="textproducto" class="form-control" type="text" name="textproducto" placeholder="Producto">
                                                             </div>
                                                             <input id="codproducto" type="hidden" name="codproducto" placeholder="Producto">
+                                                            <input id="txtinafecto" type="hidden" name="txtinafecto">
                                                         </div>
                                                         <div class="input-group mb-3 row justify-content-between">
                                                             <did class="col-4 autocomplete">
@@ -191,6 +192,7 @@ $_POST["s_usuario"] = $dniSesion;
                                                                             <th>Cantidad</th>
                                                                             <th>P. Unitario</th>
                                                                             <th>Total</th>
+                                                                            <th style="display:none;">Inafecto</th>
                                                                             <th>Opciones</th>
                                                                         </tr>
                                                                     </thead>

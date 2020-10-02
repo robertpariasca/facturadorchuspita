@@ -91,6 +91,21 @@ $_POST["s_usuario"] = $dniSesion;
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="tipoigv" id="chkafecta" value="0" checked>
+                                                        <label class="form-check-label" for="chkafecta">
+                                                            Afecta IGV
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="tipoigv" id="chkafectano" value="1">
+                                                        <label class="form-check-label" for="chkafectano">
+                                                            No Afecta IGV
+                                                        </label>
+                                                    </div>
+                                                </div>
+
 
                                                 <div class="row">
                                                     <!-- /.col -->
@@ -104,35 +119,35 @@ $_POST["s_usuario"] = $dniSesion;
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="listar">
-                            <div class="row justify-content-center">
-                                <div class="row col-12 justify-content-center">
-                                    <div class="main-card mb-9 card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Listar Productos</h5>
-                                            <div class="table-responsive">
-                                                <table id="tblproducto" class="mb-0 table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th style="display:none;">Cod Producto</th>
-                                                            <th>Descripcion</th>
-                                                            <th>Precio</th>
-                                                            <th>Opciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
+                                    <div class="row justify-content-center">
+                                        <div class="row col-12 justify-content-center">
+                                            <div class="main-card mb-9 card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Listar Productos</h5>
+                                                    <div class="table-responsive">
+                                                        <table id="tblproducto" class="mb-0 table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th style="display:none;">Cod Producto</th>
+                                                                    <th>Descripcion</th>
+                                                                    <th>Precio</th>
+                                                                    <th>Opciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
+                        </div>
 
-                        </div>
-                            </div>
-                        </div>
-                        
                     </div>
 
 

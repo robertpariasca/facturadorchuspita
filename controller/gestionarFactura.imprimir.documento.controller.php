@@ -20,6 +20,10 @@ try {
     $objFacturacion = new Facturacion();
     $objDetalle = new FacturacionDetalle();
     $datosempresa = $objEmpresa->listar();
+    $datoscliente = $objFacturacion->listar();
+    $objDetalle->setSeriedoc($SerieDoc);
+    $objDetalle->setNrodoc($NroDoc);
+    $datosdetalle = $objDetalle->listar();
 
    //$html=$datosempresa[0]["ruc"];
 
@@ -62,15 +66,166 @@ try {
   </table>
    <br>
 
-   </main>
-   </header>
-  
+';
+$html.='
+
+
+<table  class="info_medio" width="100%" height="50%" border="0" >
+  <tr> 
+    <td  ><b>SEÑOR(ES):</b> '.$datoscliente[0]["razon_social"].'</td>
+    <td  align="right"> <b> Nro Doc : </b> '.$datoscliente[0]["nro_ruc"] .'</td>
+  </tr>
+  <tr>
+     <td > <b> DIRECCION:</b> '.$datoscliente[0]["direccion"].' </td>
+    <td align="right"> <b> FECHA DE EMISION:</b> '.$datoscliente[0]["fecha_emision"].' </td>
+  </tr>
+</table>  <br>
+
+';
+$html.='
+    </header>
+      <table  class="tabla_venta">
+        <thead>
+          <tr>
+            <th class="desc">CANT</th>
+            <th>DESCRIPCION</th>
+            <th>PRECIO UNIT.</th>
+            <th>IMPORTE</th>
+          </tr>
+        </thead>
+        <tbody>';
+
+
+    foreach ($datosdetalle as $data) {
+      $tot = number_format(floatval($data["cantidad_producto"]) * floatval($data["precio_venta"]),2,".","");
+        $html.='  <tr>
+            <td class="desc"  align="right" >'.$data["cantidad_producto"].'</td>
+            <td class="unit"  align="left" >'.$data["nom_producto"].'</td>
+            <td class="qty"  align="right" >'.$data["precio_venta"].'</td>
+            <td class="total"  align="right">'.$tot.'</td>
+          </tr>
+          ';
+
+          }
+
+          $html.='
+           <tr>
+            <td class="service" align="center"></td>
+            <td class="desc"  align="center" ></td>
+            <td class="unit"  align="center" ></td>
+            <td class="qty"  align="center" ></td>
+            <td class="total"  align="center"></td>
+          </tr>
+           <tr>
+            <td class="service" align="center"></td>
+            <td class="desc"  align="center" ></td>
+            <td class="unit"  align="center" ></td>
+            <td class="qty"  align="center" ></td>
+            <td class="total"  align="center"></td>
+          </tr>
+           <tr>
+            <td class="service" align="center"></td>
+            <td class="desc"  align="center" ></td>
+            <td class="unit"  align="center" ></td>
+            <td class="qty"  align="center" ></td>
+            <td class="total"  align="center"></td>
+          </tr>
+
+        </tbody>
+      </table>    
+      </main>
+
+<table  class="ultima_tabla" width="100%" border="0">
+ 
+  <tr>
+    <td width="40%"><b></b></td>
+    <td width="40%"><div align="center">TOT. GRAVADO</div></td>
+    <td align="right" width="20%"><div align="right"> S/ '.$datoscliente[0]["gravado"].'</div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><div align="center">TOT. INAFECTO</div></td>
+    <td align="right"><div align="right"> S/ '.$datoscliente[0]["inafecto"].'</div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><div align="center">TOT. EXONERADO</div></td>
+    <td align="right"><div align="right"> S/ '.$datoscliente[0]["exonerado"].'</div></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><div align="center">TOT. RECARGO</div></td>
+    <td align="right"><div align="right">S/ 0.00</div></td>
+  </tr>
+  ';
+
+    $html.='
+  <tr>
+    <td></td>
+    <td><div align="center">TOT. DSCTO</div></td>
+    <td align="right"><div align="right">S/ 0.00</div></td>
+  </tr>
+  ';
+$html.='
+  <tr>
+  <td></td>
+    <td><div align="center">IGV (18%)</div></td>
+    <td align="right"><div align="right"> S/ '.$cabecera[5].'</div></td>
+  </tr>
+  <tr>
+  <td></td>
+    <td><div align="center">TOT. PERCEPCION</div></td>
+    <td align="right"><div align="right">S/ 0.00</div></td>
+  </tr>
+  <tr>
+  <td></td>
+    <td><div align="center">IMP. TOTAL</div></td>
+    <td align="right"><div align="right"> S/ '.$cabecera[6].'</div></td>
+  </tr>
+  <tr>
+  <td></td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+  <td></td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  ';
+
+$html.='
+  <tr>
+    <td><b>REPRESENTACION IMPRESA DE LA  '.$tipo_doc.' ELECTRONICA</b></td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td><b>PODRA SER CONSULTADA EN  '.$para[3].'</b></td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  ';
+
+$html.='
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="center"></div></td>
+    <td><div align="center"></div></td>
+  </tr>
+</table>
+
   </body>
 </html> ';
 
 /*Creacion Ticket*/
 
-    $mpdf = new \Mpdf\Mpdf(['format' => [100, 500]]);
+    $mpdf = new \Mpdf\Mpdf(['format' => [72, 200], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
     $mpdf->page=0;
     $mpdf->state=0;
     $mpdf->WriteHTML($html);

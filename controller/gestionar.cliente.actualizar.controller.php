@@ -25,6 +25,7 @@
     $Envase                 = $_POST["p_envase"];
     $Medida                 = $_POST["p_medida"];
     $Precio                 = $_POST["p_precio"];
+    $Afectacion             = $_POST["p_afectacion"];
 
     $objUsuario = new Producto();
     session_name("Birdy");
@@ -37,6 +38,7 @@
         $objUsuario->setIdenvase($Envase);
         $objUsuario->setIdunidadmedida($Medida);
         $objUsuario->setPrecio($Precio);
+        $objUsuario->setInafecto($Afectacion);
 
         $resultado = $objUsuario->grabar();
 /*

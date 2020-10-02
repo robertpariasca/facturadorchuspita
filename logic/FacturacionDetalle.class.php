@@ -134,5 +134,33 @@ class FacturacionDetalle extends Conexion
 
         return false;
     }
+    public function listar()
+    {
+        try {
+            $sql = "
+                    select
+                        cod_producto,
+                        nom_producto,
+                        precio_sin_igv,
+                        igv_producto
+                        precio_venta,
+                        cantidad_producto
+                    from
+                        facturacion_detalle
+                    where
+                        serie_doc=:p_seriedoc
+                    and
+                        nro_doc=:p_nrodoc
+                ";
 
+            $sentencia = $this->dblink->prepare($sql);
+            $sentencia->bindParam(":p_seriedoc", $this->getSeriedoc());
+            $sentencia->bindParam(":p_nrodoc", $this->getNrodoc());
+            $sentencia->execute();
+            $resultado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (Exception $exc) {
+            throw $exc;
+        }
+    }
 }

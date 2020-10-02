@@ -16,6 +16,7 @@ class Producto extends Conexion
     private $codbarraproducto;
     private $descripcion;
     private $precio;
+    private $inafecto;
 
     public function getIdproducto()
     {
@@ -126,6 +127,18 @@ class Producto extends Conexion
     {
         $this->precio = $precio;
     }
+
+    public function getInafecto()
+    {
+        return $this->inafecto;
+    }
+
+    public function setInafecto($inafecto)
+    {
+        $this->inafecto = $inafecto;
+    }
+
+
     public function grabar()
     {
         $this->dblink->beginTransaction();
@@ -139,7 +152,8 @@ class Producto extends Conexion
                                     :p_marca,
                                     :p_envase,
                                     :p_medida,
-                                    :p_precio
+                                    :p_precio,
+                                    :p_inafecto
                                  );";
                     $sentencia = $this->dblink->prepare($sql);
                     // $sentencia->bindParam(":p_codigoCandidato", $this->getCodigoCandidato());
@@ -150,6 +164,7 @@ class Producto extends Conexion
                     $sentencia->bindParam(":p_envase", $this->getIdenvase());
                     $sentencia->bindParam(":p_medida", $this->getIdunidadmedida());
                     $sentencia->bindParam(":p_precio", $this->getPrecio());
+                    $sentencia->bindParam(":p_inafecto", $this->getInafecto());
                     $sentencia->execute();
 
                     $this->dblink->commit();
@@ -171,7 +186,8 @@ class Producto extends Conexion
                     select
                         descripcion,
                         cod_producto,
-                        precio
+                        precio,
+                        inafecto
                     from
                         al_producto
                 ";
@@ -260,4 +276,5 @@ class Producto extends Conexion
 
         return false;
     }
+
 }

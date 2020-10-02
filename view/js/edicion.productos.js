@@ -145,6 +145,7 @@ swal(
             p_envase: $("#opcenvase option:selected").val(),
             p_medida: $("#opcmedida option:selected").val(),
             p_precio: $("#textprecio").val(),
+            p_afectacion: $("input[name='tipoigv']:checked").val(),
           })
             .done(function (resultado) {
               var datosJSON = resultado;

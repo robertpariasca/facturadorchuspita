@@ -12,6 +12,9 @@ try {
     $NroRuc             = $_POST["p_nroruc"];
     $RazonSocial        = $_POST["p_razonsocial"];
     $Direccion          = $_POST["p_direccion"];
+    $Gravado            = $_POST["p_gravado"];
+    $Inafecto           = $_POST["p_inafecto"];
+    $Exonerado          = $_POST["p_exonerado"];
     $Subtotal           = $_POST["p_subtotal"];
     $Igv                = $_POST["p_igv"];
     $Total              = $_POST["p_total"];
@@ -38,24 +41,36 @@ try {
 
 
     $doctributo = fopen("E:\SFS_v1.3.3\sunat_archivos\sfs\DATA/" . $RucPropio . "-" . $TipoDoc . "-" . $SerieDoc . "-" . $NroDoc . ".TRI", "a");
-    $doc = "1000|IGV|VAT|" . $Subtotal . "|" . $Igv . "|";
-    fwrite($doctributo, $doc);
+
+    if ($Gravado != "0.00") {
+        $doc = "1000|IGV|VAT|" . $Gravado . "|" . $Igv . "|";
+        fwrite($doctributo, $doc);
+    }
+    if ($Inafecto != "0.00") {
+        $doc = "1000|IGV|VAT|" . $Inafecto . "|0.00|";
+        fwrite($doctributo, $doc);
+    }
+    if ($Exonerado != "0.00") {
+        $doc = "1000|IGV|VAT|" . $Exonerado . "|0.00|";
+        fwrite($doctributo, $doc);
+    }
     fclose($doctributo);
-
-/*Creacion Ticket*/
-
-    $mpdf = new \Mpdf\Mpdf();
-    $mpdf->WriteHTML('<h1>Hello world!</h1>');
-    $mpdf->Output("E:\pdf1.pdf");
-
-/*Creacion Ticket*/
+/*
+    $mpdf = new \Mpdf\Mpdf(['format' => [72, 200], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
+    $mpdf->page=0;
+    $mpdf->state=0;
+    $mpdf->WriteHTML("aea");
+    $mpdf->Output("E:\pdf2.pdf");
+*/
 
     $objUsuario->setSeriedoc($SerieDoc);
     $objUsuario->setNrodoc($NroDoc);
     $objUsuario->setNroruc($NroRuc);
     $objUsuario->setRazonsocial($RazonSocial);
     $objUsuario->setDireccion($Direccion);
-    $objUsuario->setSubtotal($Subtotal);
+    $objUsuario->setGravado($Gravado);
+    $objUsuario->setInafecto($Inafecto);
+    $objUsuario->setExonerado($Exonerado);
     $objUsuario->setIgv($Igv);
     $objUsuario->setTotal($Total);
     $objUsuario->setFechaemision($FechaEmision);

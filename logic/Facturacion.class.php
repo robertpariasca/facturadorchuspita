@@ -10,7 +10,9 @@ class Facturacion extends Conexion
     private $nroruc;
     private $razonsocial;
     private $direccion;
-    private $subtotal;
+    private $gravado;
+    private $inafecto;
+    private $exonerado;
     private $igv;
     private $total;
     private $fechaemision;
@@ -66,17 +68,60 @@ class Facturacion extends Conexion
     {
         $this->direccion = $direccion;
     }
+    
 
-    public function getSubtotal()
+    /**
+     * Get the value of gravado
+     */ 
+    public function getGravado()
     {
-        return $this->subtotal;
+        return $this->gravado;
     }
 
-    public function setSubtotal($subtotal)
+    /**
+     * Set the value of gravado
+     *
+     * @return  self
+     */ 
+    public function setGravado($gravado)
     {
-        $this->subtotal = $subtotal;
+        $this->gravado = $gravado;
+
+        return $this;
     }
 
+    /**
+     * Get the value of inafecto
+     */ 
+    public function getInafecto()
+    {
+        return $this->inafecto;
+    }
+
+    /**
+     * Set the value of inafecto
+     *
+     * @return  self
+     */ 
+    public function setInafecto($inafecto)
+    {
+        $this->inafecto = $inafecto;
+
+        return $this;
+    }
+
+    public function getExonerado()
+    {
+        return $this->exonerado;
+    }
+
+    public function setExonerado($exonerado)
+    {
+        $this->exonerado = $exonerado;
+
+        return $this;
+    }
+  
     public function getIgv()
     {
         return $this->igv;
@@ -130,7 +175,9 @@ class Facturacion extends Conexion
                                     :p_nroruc,
                                     :p_razonsocial,
                                     :p_direccion,
-                                    :p_subtotal,
+                                    :p_gravado,
+                                    :p_inafecto,
+                                    :p_exonerado,
                                     :p_igv,
                                     :p_total,
                                     :p_fechaemision,
@@ -143,7 +190,9 @@ class Facturacion extends Conexion
                     $sentencia->bindParam(":p_nroruc", $this->getNroruc());
                     $sentencia->bindParam(":p_razonsocial", $this->getRazonsocial());
                     $sentencia->bindParam(":p_direccion", $this->getDireccion());
-                    $sentencia->bindParam(":p_subtotal", $this->getSubtotal());
+                    $sentencia->bindParam(":p_gravado", $this->getGravado());
+                    $sentencia->bindParam(":p_inafecto", $this->getInafecto());
+                    $sentencia->bindParam(":p_exonerado", $this->getExonerado());
                     $sentencia->bindParam(":p_igv", $this->getIgv());
                     $sentencia->bindParam(":p_total", $this->getTotal());
                     $sentencia->bindParam(":p_fechaemision", $this->getFechaemision());
@@ -161,5 +210,33 @@ class Facturacion extends Conexion
 
         return false;
     }
-    
+
+    public function listar()
+    {
+        try {
+            $sql = "
+                    select
+                        nro_ruc,
+                        razon_social,
+                        direccion,
+                        gravado,
+                        inafecto,
+                        exonerado,
+                        igv,
+                        total,
+                        fecha_emision,
+                        hora_emision
+                    from
+                        facturacion
+                ";
+
+            $sentencia = $this->dblink->prepare($sql);
+            $sentencia->execute();
+            $resultado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (Exception $exc) {
+            throw $exc;
+        }
+    }
+
 }
