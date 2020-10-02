@@ -161,7 +161,7 @@ $_POST["s_usuario"] = $dniSesion;
                     <!-- ./wrapper -->
                     <?php include_once 'scripts.view.php'; ?>
                     <script src="js/edicion.productos.js" type="text/javascript"></script>
-                    <script src="js/grabar.producto.js" type="text/javascript"></script>
+                    <!--<script src="js/grabar.producto.js" type="text/javascript"></script>-->
                     <!--<script src="js/gestionarTratamiento.js" type="text/javascript"></script>-->
 
 

@@ -43,17 +43,18 @@ try {
     $doctributo = fopen("E:\SFS_v1.3.3\sunat_archivos\sfs\DATA/" . $RucPropio . "-" . $TipoDoc . "-" . $SerieDoc . "-" . $NroDoc . ".TRI", "a");
 
     if ($Gravado != "0.00") {
-        $doc = "1000|IGV|VAT|" . $Gravado . "|" . $Igv . "|";
-        fwrite($doctributo, $doc);
-    }
-    if ($Inafecto != "0.00") {
-        $doc = "1000|IGV|VAT|" . $Inafecto . "|0.00|";
+        $doc = "1000|IGV|VAT|" . $Gravado . "|" . $Igv . "|".PHP_EOL;
         fwrite($doctributo, $doc);
     }
     if ($Exonerado != "0.00") {
-        $doc = "1000|IGV|VAT|" . $Exonerado . "|0.00|";
+        $doc = "9997|EXO|VAT|" . $Exonerado . "|0.00|".PHP_EOL;
         fwrite($doctributo, $doc);
     }
+    if ($Inafecto != "0.00") {
+        $doc = "9998|INA|VAT|" . $Inafecto . "|0.00|".PHP_EOL;
+        fwrite($doctributo, $doc);
+    }
+
     fclose($doctributo);
 /*
     $mpdf = new \Mpdf\Mpdf(['format' => [72, 200], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);

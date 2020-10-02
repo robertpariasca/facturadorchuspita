@@ -41,9 +41,9 @@
     if ($SumGravado != "0.00"){
         $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|1000|".$SumIGV."|".$SumItem."|IGV|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
     }else if ($SumInafecto != "0.00"){
-        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|9998|".$SumIGV."|".$SumItem."|IGV|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|9998|".$SumIGV."|".$SumItem."|INA|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
     }else if ($SumExonerado != "0.00"){
-        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|9997|".$SumIGV."|".$SumItem."|IGV|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|9997|".$SumIGV."|".$SumItem."|EXO|VAT|20|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
     }
 
     fwrite($docdetalle, $txt);

@@ -142,7 +142,7 @@ class FacturacionDetalle extends Conexion
                         cod_producto,
                         nom_producto,
                         precio_sin_igv,
-                        igv_producto
+                        igv_producto,
                         precio_venta,
                         cantidad_producto
                     from

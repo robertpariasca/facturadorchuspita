@@ -67,8 +67,8 @@ $("#frmGenerarDocumento").submit(function (event) {
             preciosinigv = (
               parseFloat(preciosinigv) + parseFloat(subtotitem)
             ).toFixed(2);
-            inafecto = (
-              parseFloat(inafecto) + parseFloat(subtotitem)
+            exonerado = (
+              parseFloat(exonerado) + parseFloat(subtotitem)
             ).toFixed(2);
           }
         });
@@ -224,7 +224,7 @@ $("#frmGenerarDocumento").submit(function (event) {
                     gravadouni = parseFloat(preciosinigv);
                   } else {
                     var preciosinigv = parseFloat(precioproducto).toFixed(2);
-                    inafectouni = preciosinigv;
+                    exoneradouni = preciosinigv;
                   }
 
                   $.post(

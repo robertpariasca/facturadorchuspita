@@ -7,11 +7,13 @@ try {
     require_once '../logic/Empresa.class.php';
     require_once '../util/functions/Helper.class.php';
     require_once '../vendor/autoload.php';
+    require_once 'functionQR.php';
 
     $SerieDoc           = $_POST["p_seriedoc"];
     $NroDoc             = $_POST["p_nrodoc"];
     $TipoDoc            = $_POST["p_tipodoc"];
     $NomTipoDoc         = "";
+    $TipoDocCliente     = "";
 
     $TipoDocIdentidad   = "";
     session_name("Birdy");
@@ -24,14 +26,26 @@ try {
     $objDetalle->setSeriedoc($SerieDoc);
     $objDetalle->setNrodoc($NroDoc);
     $datosdetalle = $objDetalle->listar();
-
+    
    //$html=$datosempresa[0]["ruc"];
 
     if($TipoDoc=="01"){
         $NomTipoDoc = "FACTURA";
+        $TipoDocCliente = "6";
     }else{
         $NomTipoDoc = "BOLETA";
+        $TipoDocCliente = "1";
     }
+
+    $nomdoc = $SerieDoc.'-'.$NroDoc;
+    $fechaemision = $datoscliente[0]["fecha_emision"];
+    $dividir = explode('[/.-]', $fechaemision);
+    $nuefecha = $dividir[2].'-'.$dividir[1].'-'.$dividir[0];
+
+
+    $cadena = $datosempresa[0]["ruc"].'|'.$TipoDoc.'|'.$SerieDoc.'|'.$NroDoc.'|'.$datoscliente[0]["igv"].'|'.$datoscliente[0]["total"].'|'.$nuefecha.'|'.$TipoDocCliente.'|'.$datoscliente[0]["nro_ruc"];
+
+    $imgQR = QR($nomdoc, $cadena);
 
    $html='
 
@@ -170,7 +184,7 @@ $html.='
   <tr>
   <td></td>
     <td><div align="center">IGV (18%)</div></td>
-    <td align="right"><div align="right"> S/ '.$cabecera[5].'</div></td>
+    <td align="right"><div align="right"> S/ '.$datoscliente[0]["igv"].'</div></td>
   </tr>
   <tr>
   <td></td>
@@ -180,7 +194,7 @@ $html.='
   <tr>
   <td></td>
     <td><div align="center">IMP. TOTAL</div></td>
-    <td align="right"><div align="right"> S/ '.$cabecera[6].'</div></td>
+    <td align="right"><div align="right"> S/ '.$datoscliente[0]["total"].'</div></td>
   </tr>
   <tr>
   <td></td>
@@ -195,15 +209,16 @@ $html.='
   ';
 
 $html.='
+
   <tr>
-    <td><b>REPRESENTACION IMPRESA DE LA  '.$tipo_doc.' ELECTRONICA</b></td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
+    <td colspan="3"><b>REPRESENTACION IMPRESA DE LA  '.$NomTipoDoc.' ELECTRONICA</b></td>
+    
   </tr>
   <tr>
-    <td><b>PODRA SER CONSULTADA EN  '.$para[3].'</b></td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
+    <td>
+
+    '.$imgQR.'
+    </td>
   </tr>
   ';
 
@@ -213,11 +228,7 @@ $html.='
     <td><div align="center"></div></td>
     <td><div align="center"></div></td>
   </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
-  </tr>
+
 </table>
 
   </body>
@@ -225,7 +236,7 @@ $html.='
 
 /*Creacion Ticket*/
 
-    $mpdf = new \Mpdf\Mpdf(['format' => [72, 200], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
+    $mpdf = new \Mpdf\Mpdf(['format' => [72, 170], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
     $mpdf->page=0;
     $mpdf->state=0;
     $mpdf->WriteHTML($html);

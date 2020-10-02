@@ -82,7 +82,7 @@ function autocomplete(inp, arr) {
           inp.value = this.getElementsByTagName("input")[0].value;
           var valores = this.getElementsByTagName("input")[0].name.split("|");
           document.getElementById("codproducto").value = valores[0];
-          document.getElementById("textPrecioProducto").value = valores[1];
+          document.getElementById("textPrecioProducto").value = parseFloat(valores[1]).toFixed(2);
           document.getElementById("txtinafecto").value = valores[2];
           /*close the list of autocompleted values,
                   (or any other open lists of autocompleted values:*/
