@@ -240,7 +240,7 @@ $html.='
     $mpdf->page=0;
     $mpdf->state=0;
     $mpdf->WriteHTML($html);
-    $mpdf->Output("E:\pdf1.pdf");
+    $mpdf->Output("E:/". $nomdoc.".pdf");
 
 /*Creacion Ticket*/
 

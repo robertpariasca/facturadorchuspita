@@ -21,6 +21,7 @@
     $Descripcion            = $_POST["p_descripcion"];
     $Precio                 = $_POST["p_precio"];
     $CodProducto            = $_POST["p_codproducto"];
+    $CodBarra               = $_POST["p_codbarra"];
 
     $objUsuario = new Producto();
     session_name("Birdy");
@@ -28,7 +29,8 @@
         
         $objUsuario->setDescripcion($Descripcion);
         $objUsuario->setPrecio($Precio);        
-        $objUsuario->setCodproducto($CodProducto);  
+        $objUsuario->setCodproducto($CodProducto);
+        $objUsuario->setCodbarraproducto($CodBarra);
         $resultado = $objUsuario->actualizar();
 /*
         echo '<pre>';

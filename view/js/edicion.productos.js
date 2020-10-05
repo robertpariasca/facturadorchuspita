@@ -29,6 +29,8 @@ $(document).ready(function () {
             $("#textprecio").val(resultado.datos[i].precio);
 
             $("#textcodproducto").val(resultado.datos[i].cod_producto);
+
+            $("#textcodigo").val(resultado.datos[i].cod_barra_producto);
             
           }
         } else {
@@ -104,6 +106,7 @@ swal(
           p_codproducto: $("#textcodproducto").val(),
           p_descripcion: $("#textdescripcion").val(),
           p_precio: $("#textprecio").val(),
+          p_codbarra: $("#textcodigo").val(),
         })
           .done(function (resultado) {
             var datosJSON = resultado;
@@ -119,12 +122,13 @@ swal(
                 $("#btncerrar").click(); //Cerrar la ventana
               } else if (datosJSON.mensaje == "DUAli") {
                 swal("Error", "Este usuario ya ha sido tomado", "warning");
-                //location.reload();
+                
                 $("#btncerrar").click(); //Cerrar la ventana
               } else {
                 swal("Exito", datosJSON.mensaje, "success");
-                //location.reload();
+                location.reload();
                 $("#btncerrar").click(); //Cerrar la ventana
+
               }
             } else {
               swal("Mensaje del sistema", resultado, "warning");
@@ -146,6 +150,7 @@ swal(
             p_medida: $("#opcmedida option:selected").val(),
             p_precio: $("#textprecio").val(),
             p_afectacion: $("input[name='tipoigv']:checked").val(),
+            p_codbarra: $("#textcodigo").val(),
           })
             .done(function (resultado) {
               var datosJSON = resultado;
@@ -161,11 +166,10 @@ swal(
                   $("#btncerrar").click(); //Cerrar la ventana
                 } else if (datosJSON.mensaje == "DUAli") {
                   swal("Error", "Este usuario ya ha sido tomado", "warning");
-                  //location.reload();
                   $("#btncerrar").click(); //Cerrar la ventana
                 } else {
                   swal("Exito", datosJSON.mensaje, "success");
-                  //location.reload();
+                  location.reload();
                   $("#btncerrar").click(); //Cerrar la ventana
                 }
               } else {

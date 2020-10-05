@@ -146,6 +146,7 @@ class Producto extends Conexion
         try {
 
                     $sql = "select fn_registrarProducto(                    
+                                    :p_codbarra,
                                     :p_descripcion,
                                     :p_categoria, 
                                     :p_tipo,
@@ -156,7 +157,7 @@ class Producto extends Conexion
                                     :p_inafecto
                                  );";
                     $sentencia = $this->dblink->prepare($sql);
-                    // $sentencia->bindParam(":p_codigoCandidato", $this->getCodigoCandidato());
+                    $sentencia->bindParam(":p_codbarra", $this->getCodbarraproducto());
                     $sentencia->bindParam(":p_descripcion", $this->getDescripcion());
                     $sentencia->bindParam(":p_categoria", $this->getIdcategoria());
                     $sentencia->bindParam(":p_tipo", $this->getIdtipo());
@@ -206,6 +207,7 @@ class Producto extends Conexion
             $sql = "
                     select
                         cod_producto,
+                        cod_barra_producto,
                         id_categoria,
                         id_tipo,
                         id_marca,
@@ -257,14 +259,14 @@ class Producto extends Conexion
 
         try {
 
-                $sql = "update al_producto set descripcion=:p_descripcion, precio=:p_precio where cod_producto=:p_codproducto;";
+                $sql = "update al_producto set descripcion=:p_descripcion, precio=:p_precio, cod_barra_producto=:p_codbarra where cod_producto=:p_codproducto;";
                 $sentencia = $this->dblink->prepare($sql);
-                // $sentencia->bindParam(":p_codigoCandidato", $this->getCodigoCandidato());
+                
+                $sentencia->bindParam(":p_codbarra", $this->getCodbarraproducto());
                 $sentencia->bindParam(":p_descripcion", $this->getDescripcion());
                 $sentencia->bindParam(":p_precio", $this->getPrecio());
                 $sentencia->bindParam(":p_codproducto", $this->getCodproducto());
-                //$sentencia->bindParam(":p_tipo", $this->getTipo());
-                //$sentencia->bindParam(":p_estado", $this->getEstado());
+                
                 $sentencia->execute();
 
                 $this->dblink->commit();

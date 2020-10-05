@@ -82,7 +82,9 @@ function autocomplete(inp, arr) {
           inp.value = this.getElementsByTagName("input")[0].value;
           var valores = this.getElementsByTagName("input")[0].name.split("|");
           document.getElementById("codproducto").value = valores[0];
-          document.getElementById("textPrecioProducto").value = parseFloat(valores[1]).toFixed(2);
+          document.getElementById("textPrecioProducto").value = parseFloat(
+            valores[1]
+          ).toFixed(2);
           document.getElementById("txtinafecto").value = valores[2];
           /*close the list of autocompleted values,
                   (or any other open lists of autocompleted values:*/
@@ -165,7 +167,9 @@ $("#agregarDetalleProm").click(function () {
   var codproducto = $("#codproducto").val();
   var textCantProducto = $("#textCantProducto").val();
   var textPrecioProducto = $("#textPrecioProducto").val();
-  var textTotal = (parseFloat(textCantProducto) * parseFloat(textPrecioProducto)).toFixed(2);
+  var textTotal = (
+    parseFloat(textCantProducto) * parseFloat(textPrecioProducto)
+  ).toFixed(2);
   var inafecto = $("#txtinafecto").val();
 
   if (textproducto == "" || codproducto == "" || textCantProducto == "") {
@@ -207,40 +211,33 @@ $(document).on("click", ".deleteproductos", function () {
   sumardetalle();
 });
 function sumardetalle() {
-  var sumatotal = 0.00;
+  var sumatotal = 0.0;
   $("#detprod tbody>tr").each(function () {
     //alert(codpromocion);
     var totalprod = $(this).find(".totalproducto").html();
 
-    if (totalprod === undefined){
-      
-    }else{
+    if (totalprod === undefined) {
+    } else {
       sumatotal = parseFloat(sumatotal) + parseFloat(totalprod);
     }
-
-    
   });
-  document.getElementById("texttotalproducto").value = parseFloat(sumatotal).toFixed(2);
+  document.getElementById("texttotalproducto").value = parseFloat(
+    sumatotal
+  ).toFixed(2);
 }
 
-$('input:radio[name="tipodoc"]').change(
-  function(){
-
-    if ($(this).val() == '03') {
-
-      $("#textRuc").attr('maxlength',"8");
-      $("#textRuc").val("");
-      $("#textRuc").focus();
+$('input:radio[name="tipodoc"]').change(function () {
+  if ($(this).val() == "03") {
+    $("#textRazonSocial").val("");
+    $("#textDireccion").val("");
+    $("#textRuc").attr("maxlength", "8");
+    $("#textRuc").val("");
+    $("#textRuc").focus();
+  } else {
+    $("#textRazonSocial").val("");
+    $("#textDireccion").val("");
+    $("#textRuc").attr("maxlength", "11");
+    $("#textRuc").val("");
+    $("#textRuc").focus();
   }
-  else {
-
-      // if it's the 'No' button removes the 'appended' element.
-      $("#textRuc").attr('maxlength',"11");
-      $("#textRuc").val("");
-      $("#textRuc").focus();
-  }
-
-   
-
-  });
-
+});

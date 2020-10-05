@@ -50,11 +50,19 @@ $_POST["s_usuario"] = $dniSesion;
                                             </div>
                                             <form id="frmGrabarProducto">
                                                 <div class="input-group mb-3">
+                                                    <input type="text" name="textcodigo" id="textcodigo" class="form-control" required="" placeholder="Codigo">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-barcode"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mb-3">
                                                     <input type="text" name="textdescripcion" id="textdescripcion" class="form-control" required="" placeholder="Descripcion">
                                                     <input type="text" name="textcodproducto" id="textcodproducto" class="form-control" hidden>
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-box"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -87,7 +95,7 @@ $_POST["s_usuario"] = $dniSesion;
                                                     <input type="text" name="textprecio" id="textprecio" class="form-control" required="" placeholder="Precio" onkeypress="ValidaSoloNumerosYPunto();">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
-                                                            <span class="fas fa-user"></span>
+                                                            <span class="fas fa-dollar-sign"></span>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -26,6 +26,7 @@
     $Medida                 = $_POST["p_medida"];
     $Precio                 = $_POST["p_precio"];
     $Afectacion             = $_POST["p_afectacion"];
+    $CodBarra               = $_POST["p_codbarra"];
 
     $objUsuario = new Producto();
     session_name("Birdy");
@@ -39,6 +40,7 @@
         $objUsuario->setIdunidadmedida($Medida);
         $objUsuario->setPrecio($Precio);
         $objUsuario->setInafecto($Afectacion);
+        $objUsuario->setCodbarraproducto($CodBarra);
 
         $resultado = $objUsuario->grabar();
 /*
