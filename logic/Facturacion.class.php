@@ -228,9 +228,15 @@ class Facturacion extends Conexion
                         hora_emision
                     from
                         facturacion
+                    where
+                        serie_doc=:p_seriedoc
+                    and
+                        nro_doc=:p_nrodoc
                 ";
 
             $sentencia = $this->dblink->prepare($sql);
+            $sentencia->bindParam(":p_seriedoc", $this->getSeriedoc());
+            $sentencia->bindParam(":p_nrodoc", $this->getNrodoc());
             $sentencia->execute();
             $resultado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             return $resultado;

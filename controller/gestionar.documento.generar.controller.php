@@ -69,11 +69,11 @@ try {
     $objUsuario->setNroruc($NroRuc);
     $objUsuario->setRazonsocial($RazonSocial);
     $objUsuario->setDireccion($Direccion);
-    $objUsuario->setGravado($Gravado);
-    $objUsuario->setInafecto($Inafecto);
-    $objUsuario->setExonerado($Exonerado);
-    $objUsuario->setIgv($Igv);
-    $objUsuario->setTotal($Total);
+    $objUsuario->setGravado(number_format($Gravado,2,'.',''));
+    $objUsuario->setInafecto(number_format($Inafecto,2,'.',''));
+    $objUsuario->setExonerado(number_format($Exonerado,2,'.',''));
+    $objUsuario->setIgv(number_format($Igv,2,'.',''));
+    $objUsuario->setTotal(number_format($Total,2,'.',''));
     $objUsuario->setFechaemision($FechaEmision);
     $objUsuario->setHoraemision($HoraEmision);
 

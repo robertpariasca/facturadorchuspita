@@ -22,6 +22,8 @@ try {
     $objFacturacion = new Facturacion();
     $objDetalle = new FacturacionDetalle();
     $datosempresa = $objEmpresa->listar();
+    $objFacturacion->setSeriedoc($SerieDoc);
+    $objFacturacion->setNrodoc($NroDoc);
     $datoscliente = $objFacturacion->listar();
     $objDetalle->setSeriedoc($SerieDoc);
     $objDetalle->setNrodoc($NroDoc);
@@ -113,9 +115,9 @@ $html.='
     foreach ($datosdetalle as $data) {
       $tot = number_format(floatval($data["cantidad_producto"]) * floatval($data["precio_venta"]),2,".","");
         $html.='  <tr>
-            <td class="desc"  align="right" >'.$data["cantidad_producto"].'</td>
+            <td class="desc"  align="right" >'.number_format($data["cantidad_producto"],2,'.','').'</td>
             <td class="unit"  align="left" >'.$data["nom_producto"].'</td>
-            <td class="qty"  align="right" >'.$data["precio_venta"].'</td>
+            <td class="qty"  align="right" >'.number_format($data["precio_venta"],2,'.','').'</td>
             <td class="total"  align="right">'.$tot.'</td>
           </tr>
           ';
@@ -154,17 +156,17 @@ $html.='
   <tr>
     <td width="40%"><b></b></td>
     <td width="40%"><div align="center">TOT. GRAVADO</div></td>
-    <td align="right" width="20%"><div align="right"> S/ '.$datoscliente[0]["gravado"].'</div></td>
+    <td align="right" width="20%"><div align="right"> S/ '.number_format($datoscliente[0]["gravado"],2,'.','').'</div></td>
   </tr>
   <tr>
     <td></td>
     <td><div align="center">TOT. INAFECTO</div></td>
-    <td align="right"><div align="right"> S/ '.$datoscliente[0]["inafecto"].'</div></td>
+    <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["inafecto"],2,'.','').'</div></td>
   </tr>
   <tr>
     <td></td>
     <td><div align="center">TOT. EXONERADO</div></td>
-    <td align="right"><div align="right"> S/ '.$datoscliente[0]["exonerado"].'</div></td>
+    <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["exonerado"],2,'.','').'</div></td>
   </tr>
   <tr>
     <td></td>
@@ -184,7 +186,7 @@ $html.='
   <tr>
   <td></td>
     <td><div align="center">IGV (18%)</div></td>
-    <td align="right"><div align="right"> S/ '.$datoscliente[0]["igv"].'</div></td>
+    <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["igv"],2,'.','').'</div></td>
   </tr>
   <tr>
   <td></td>
@@ -194,7 +196,7 @@ $html.='
   <tr>
   <td></td>
     <td><div align="center">IMP. TOTAL</div></td>
-    <td align="right"><div align="right"> S/ '.$datoscliente[0]["total"].'</div></td>
+    <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["total"],2,'.','').'</div></td>
   </tr>
   <tr>
   <td></td>
