@@ -37,6 +37,8 @@ class Categoria extends Conexion
                         descripcion_categoria
                     from
                         al_categoria
+                    order by
+                        descripcion_categoria
                 ";
 
             $sentencia = $this->dblink->prepare($sql);

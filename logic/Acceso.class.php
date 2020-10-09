@@ -94,7 +94,7 @@ class Acceso extends Conexion
 
                             $_SESSION["cod_acceso"] = $resultado["cod_acceso"];
                             $_SESSION["alias"] = $this->getAlias();
-                            $_SESSION["id_rol"] = $resultado["id_rol"];
+                            $_SESSION["id_rol"] = $resultado["id_acceso"];
 
                             $sql2 = "insert into log_inicio_sesion values(
                                                                             null,

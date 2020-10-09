@@ -36,6 +36,8 @@ class Envase extends Conexion
                         descripcion_envase
                     from
                         al_envase
+                    order by
+                        descripcion_envase
                 ";
 
             $sentencia = $this->dblink->prepare($sql);

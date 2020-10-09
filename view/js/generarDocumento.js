@@ -28,9 +28,11 @@ $("#frmGenerarDocumento").submit(function (event) {
         var inafecto = 0.00;
         var exonerado = 0.00;
         var igv = 0.00;
+
         var total = parseFloat($("#texttotalproducto").val()).toFixed(2);
         var preciosinigv = 0.00;
         var productoigv = 0.00;
+        var ICBPERprod =0.00;
         /*Impuestos*/
 
         $("#detprod tbody>tr").each(function () {
@@ -39,37 +41,56 @@ $("#frmGenerarDocumento").submit(function (event) {
           ).toFixed(2);
           var precioproducto = parseFloat(
             $(this).find(".precioproducto").html()
-          ).toFixed(2);
+          );
+          var icbperproducto = parseFloat(
+            $(this).find(".icbper").html()
+          );
           var subtotitem = (
             parseFloat(cantproducto) * parseFloat(precioproducto)
-          ).toFixed(2);
+          );
+          var icbperitem = (
+            parseFloat(cantproducto) * parseFloat(icbperproducto)
+          );
           var codinafecto = $(this).find(".inafecto").html();
-          if (codinafecto == "0") {
+          if (codinafecto == "GRA") {
             var preciosinigvunit = 0;
             var productoigvunit = 0;
+            var icbperunit = 0;
 
             preciosinigvunit = parseFloat(
               (parseFloat(subtotitem) * 100) / 118
             ).toFixed(2);
             productoigvunit = parseFloat(
               parseFloat(subtotitem) - parseFloat(preciosinigvunit)
-            ).toFixed(2);
+            );
+            icbperunit = parseFloat(icbperitem).toFixed(2);
+
             preciosinigv = (
               parseFloat(preciosinigv) + parseFloat(preciosinigvunit)
-            ).toFixed(2);
+            );
             productoigv = (
               parseFloat(productoigv) + parseFloat(productoigvunit)
-            ).toFixed(2);
+            );
             gravado = (
               parseFloat(gravado) + parseFloat(preciosinigvunit)
-            ).toFixed(2);
+            );
+            ICBPERprod = (
+              parseFloat(ICBPERprod) + parseFloat(icbperunit)
+            );
           } else {
+
+            var icbperunit = 0;
+            icbperunit = parseFloat(icbperitem);
+
             preciosinigv = (
               parseFloat(preciosinigv) + parseFloat(subtotitem)
-            ).toFixed(2);
+            );
             exonerado = (
               parseFloat(exonerado) + parseFloat(subtotitem)
-            ).toFixed(2);
+            );
+            ICBPERprod = (
+              parseFloat(ICBPERprod) + parseFloat(icbperunit)
+            );
           }
         });
 
@@ -77,8 +98,13 @@ $("#frmGenerarDocumento").submit(function (event) {
 
         //subtotal = ((parseFloat(total) * 100) / 118).toFixed(2);
         //igv = (parseFloat(total) - parseFloat(subtotal)).toFixed(2);
-        subtotal = preciosinigv;
-        igv = productoigv;
+        gravado = parseFloat(gravado).toFixed(2);
+        inafecto = parseFloat(inafecto).toFixed(2);
+        exonerado = parseFloat(exonerado).toFixed(2);
+        subtotal = parseFloat(preciosinigv).toFixed(2);
+        igv = parseFloat(productoigv).toFixed(2);
+        ICBPERprod = parseFloat(ICBPERprod).toFixed(2);
+        total = parseFloat(total).toFixed(2);
 
         var fechaactual = new Date();
         var fechaemision =
@@ -125,6 +151,7 @@ $("#frmGenerarDocumento").submit(function (event) {
                     p_exonerado: exonerado,
                     p_subtotal: subtotal,
                     p_igv: igv,
+                    p_icbper: ICBPERprod,
                     p_total: total,
                     p_fechaemision: fechaemision,
                     p_horaemision: horaemision,
@@ -200,6 +227,7 @@ $("#frmGenerarDocumento").submit(function (event) {
                   var codproducto = $(this).find(".codproducto").html();
                   var textproducto = $(this).find(".textproducto").html();
                   var textinafecto = $(this).find(".inafecto").html();
+                  var texticbper = $(this).find(".icbper").html();
                   var gravadouni = 0.00;
                   var inafectouni = 0.00;
                   var exoneradouni = 0.00;
@@ -213,14 +241,14 @@ $("#frmGenerarDocumento").submit(function (event) {
                   var preciosinigv = "0.00";
                   var productoigv = "0.00";
 
-                  if (textinafecto == "0") {
-                    var preciosinigv = (
+                  if (textinafecto == "GRA") {
+                    var preciosinigv = 
                       (parseFloat(precioproducto) * 100) /
                       118
-                    ).toFixed(2);
-                    var productoigv = (
+                    ;
+                    var productoigv = 
                       parseFloat(precioproducto) - parseFloat(preciosinigv)
-                    ).toFixed(2);
+                    ;
                     gravadouni = parseFloat(preciosinigv);
                   } else {
                     var preciosinigv = parseFloat(precioproducto).toFixed(2);
@@ -241,6 +269,7 @@ $("#frmGenerarDocumento").submit(function (event) {
                       p_inafectouni: inafectouni,
                       p_exoneradouni: exoneradouni,
                       p_precioventa: precioproducto,
+                      p_icbper: texticbper,
                       p_cantidad: cantproducto,
                       p_inafecto: textinafecto,
                     }

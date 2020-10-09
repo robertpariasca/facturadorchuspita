@@ -17,11 +17,12 @@ try {
     $Exonerado          = $_POST["p_exonerado"];
     $Subtotal           = $_POST["p_subtotal"];
     $Igv                = $_POST["p_igv"];
+    $ICBPER             = $_POST["p_icbper"];
     $Total              = $_POST["p_total"];
     $FechaEmision       = $_POST["p_fechaemision"];
     $HoraEmision        = $_POST["p_horaemision"];
     $TipoDoc            = $_POST["p_tipodoc"];
-
+    
     $TipoDocIdentidad   = "";
 
     $objUsuario = new Facturacion();
@@ -34,8 +35,10 @@ try {
         $TipoDocIdentidad = "1";
     }
 
+    $impuesto = $Igv + $ICBPER;
+
     $docfactura = fopen("E:\SFS_v1.3.3\sunat_archivos\sfs\DATA/" . $RucPropio . "-" . $TipoDoc . "-" . $SerieDoc . "-" . $NroDoc . ".CAB", "a");
-    $txt = "0101|" . $FechaEmision . "|" . $HoraEmision . "|-|0000|" . $TipoDocIdentidad . "|" . $NroRuc . "|" . $RazonSocial . "|PEN|" . $Igv . "|" . $Subtotal . "|" . $Total . "|0.00|0.00|0.00|" . $Total . "|2.1|2.0|";
+    $txt = "0101|" . $FechaEmision . "|" . $HoraEmision . "|-|0000|" . $TipoDocIdentidad . "|" . $NroRuc . "|" . $RazonSocial . "|PEN|" . $impuesto . "|" . $Subtotal . "|" . $Total . "|0.00|0.00|0.00|" . $Total . "|2.1|2.0|";
     fwrite($docfactura, $txt);
     fclose($docfactura);
 
@@ -73,6 +76,7 @@ try {
     $objUsuario->setInafecto(number_format($Inafecto,2,'.',''));
     $objUsuario->setExonerado(number_format($Exonerado,2,'.',''));
     $objUsuario->setIgv(number_format($Igv,2,'.',''));
+    $objUsuario->setICBPER(number_format($ICBPER,2,'.',''));
     $objUsuario->setTotal(number_format($Total,2,'.',''));
     $objUsuario->setFechaemision($FechaEmision);
     $objUsuario->setHoraemision($HoraEmision);

@@ -36,6 +36,8 @@ class Tipo extends Conexion
                         descripcion_tipo
                     from
                         al_tipo
+                    order by
+                        descripcion_tipo
                 ";
 
             $sentencia = $this->dblink->prepare($sql);

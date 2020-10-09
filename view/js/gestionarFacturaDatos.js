@@ -73,6 +73,8 @@ function autocomplete(inp, arr) {
           arr[i].precio +
           "|" +
           arr[i].inafecto +
+          "|" +
+          arr[i].ICBPER +
           "' value='" +
           arr[i].descripcion +
           "'>";
@@ -86,6 +88,7 @@ function autocomplete(inp, arr) {
             valores[1]
           ).toFixed(2);
           document.getElementById("txtinafecto").value = valores[2];
+          document.getElementById("txticbper").value = valores[3];
           /*close the list of autocompleted values,
                   (or any other open lists of autocompleted values:*/
           closeAllLists();
@@ -167,8 +170,9 @@ $("#agregarDetalleProm").click(function () {
   var codproducto = $("#codproducto").val();
   var textCantProducto = $("#textCantProducto").val();
   var textPrecioProducto = $("#textPrecioProducto").val();
+  var textICBPER = $("#txticbper").val();
   var textTotal = (
-    parseFloat(textCantProducto) * parseFloat(textPrecioProducto)
+    parseFloat(textCantProducto) * (parseFloat(textPrecioProducto) + parseFloat(textICBPER))
   ).toFixed(2);
   var inafecto = $("#txtinafecto").val();
 
@@ -193,6 +197,8 @@ $("#agregarDetalleProm").click(function () {
       "</td>" +
       '</td><td class="inafecto" style="display:none;">' +
       inafecto +
+      '</td><td class="icbper" style="display:none;">' +
+      textICBPER +
       "</td>" +
       '<td><div class="widget-content-right widget-content-actions">' +
       '<button type="button" name="deleteproductos" class="border-0 btn-transition btn btn-outline-danger deleteproductos"><i class="fa fa-trash-alt"></i></button></div></td></tr>';

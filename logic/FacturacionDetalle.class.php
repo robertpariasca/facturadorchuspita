@@ -11,6 +11,7 @@ class FacturacionDetalle extends Conexion
     private $nomprod;
     private $preciosinigv;
     private $igvproducto;
+    private $icbperprod;
     private $precioventa;
     private $cantidadproducto;
 
@@ -94,6 +95,18 @@ class FacturacionDetalle extends Conexion
         $this->cantidadproducto = $cantidadproducto;
     }
 
+    public function getIcbperprod()
+    {
+        return $this->icbperprod;
+    }
+
+    public function setIcbperprod($icbperprod)
+    {
+        $this->icbperprod = $icbperprod;
+
+        return $this;
+    }
+
 
     public function grabar()
     {
@@ -108,6 +121,7 @@ class FacturacionDetalle extends Conexion
                                     :p_nomproducto,
                                     :p_preciosinigv,
                                     :p_productoigv,
+                                    :p_icbperprod,
                                     :p_precioventa,
                                     :p_cantidad
                                  );";
@@ -119,6 +133,7 @@ class FacturacionDetalle extends Conexion
                     $sentencia->bindParam(":p_nomproducto", $this->getNomprod());
                     $sentencia->bindParam(":p_preciosinigv", $this->getPreciosinigv());
                     $sentencia->bindParam(":p_productoigv", $this->getIgvproducto());
+                    $sentencia->bindParam(":p_icbperprod", $this->getIcbperprod());
                     $sentencia->bindParam(":p_precioventa", $this->getPrecioventa());
                     $sentencia->bindParam(":p_cantidad", $this->getCantidadproducto());
                     $sentencia->execute();
@@ -143,6 +158,7 @@ class FacturacionDetalle extends Conexion
                         nom_producto,
                         precio_sin_igv,
                         igv_producto,
+                        icbper_prod,
                         precio_venta,
                         cantidad_producto
                     from
@@ -163,4 +179,5 @@ class FacturacionDetalle extends Conexion
             throw $exc;
         }
     }
+
 }

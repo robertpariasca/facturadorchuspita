@@ -36,6 +36,8 @@ class Marca extends Conexion
                         descripcion_marca
                     from
                         al_marca
+                    order by
+                        descripcion_marca
                 ";
 
             $sentencia = $this->dblink->prepare($sql);

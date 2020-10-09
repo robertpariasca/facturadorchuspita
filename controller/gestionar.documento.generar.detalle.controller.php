@@ -17,6 +17,7 @@
     $Inafecto           = $_POST["p_inafectouni"];
     $Exonerado          = $_POST["p_exoneradouni"];
     $PrecioVenta        = $_POST["p_precioventa"];
+    $ICBPER             = $_POST["p_icbper"];
     $Cantidad           = $_POST["p_cantidad"];
     $TextInafecto       = $_POST["p_inafecto"];
 
@@ -27,23 +28,44 @@
     $SumIGV             = number_format((floatval($Productoigv) * floatval($Cantidad)),2,".","");
     $SumItem            = number_format((floatval($PrecioSinIgv) * floatval($Cantidad)),2,".","");
     $SumTotal           = number_format((floatval($PrecioVenta) * floatval($Cantidad)),2,".","");
-
+    $PrecioVenta        = number_format((floatval($PrecioVenta) + floatval($ICBPER)),2,".","");
     //Tributos
 
     $SumGravado         = number_format((floatval($Gravado) * floatval($Cantidad)),2,".","");
     $SumInafecto        = number_format((floatval($Inafecto) * floatval($Cantidad)),2,".","");
     $SumExonerado       = number_format((floatval($Exonerado) * floatval($Cantidad)),2,".","");
-
+    $SumICBPER          = number_format((floatval($ICBPER) * floatval($Cantidad)),2,".","");
+    $SumTributo         = number_format((floatval($SumIGV) + floatval($SumICBPER)),2,".","");
     //Tributos
+
+    $PrecioSinIgv = number_format(floatval($PrecioSinIgv),2,".","");
+    $Productoigv = number_format(floatval($Productoigv),2,".","");
+
 
     $docdetalle = fopen("E:\SFS_v1.3.3\sunat_archivos\sfs\DATA/".$RucPropio."-".$TipoDoc."-".$SerieDoc."-".$NroDoc.".DET", "a");
 
     if ($SumGravado != "0.00"){
-        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|1000|".$SumIGV."|".$SumItem."|IGV|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        if ($SumICBPER != "0.00"){
+            $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumTributo."|1000|".$SumIGV."|".$SumItem."|IGV|VAT|10|18.00|-|||||||-||||||7152|".$SumICBPER."|".round($Cantidad)."|ICBPER|OTH|".$ICBPER."|".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        }else{
+            $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumTributo."|1000|".$SumIGV."|".$SumItem."|IGV|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        }
+        
     }else if ($SumInafecto != "0.00"){
-        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|9998|".$SumIGV."|".$SumItem."|INA|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        if ($SumICBPER != "0.00"){
+            $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumTributo."|9998|".$SumIGV."|".$SumItem."|INA|VAT|10|18.00|-|||||||-||||||7152|".$SumICBPER."|".round($Cantidad)."|ICBPER|OTH|".$ICBPER."|".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        }else{
+            $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumTributo."|9998|".$SumIGV."|".$SumItem."|INA|VAT|10|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        }
+
+        
     }else if ($SumExonerado != "0.00"){
-        $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumIGV."|9997|".$SumIGV."|".$SumItem."|EXO|VAT|20|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+
+        if ($SumICBPER != "0.00"){
+            $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumTributo."|9997|".$SumIGV."|".$SumItem."|EXO|VAT|20|18.00|-|||||||-||||||7152|".$SumICBPER."|".round($Cantidad)."|ICBPER|OTH|".$ICBPER."|".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        }else{
+            $txt = "NIU|".$Cantidad."|".$CodProducto."|-|".$NomProducto."|".$PrecioSinIgv."|".$SumTributo."|9997|".$SumIGV."|".$SumItem."|EXO|VAT|20|18.00|-|||||||-||||||-||||||".$PrecioVenta."|".$SumItem."|0.00|".PHP_EOL;
+        }
     }
 
     fwrite($docdetalle, $txt);
@@ -56,6 +78,7 @@
         $objUsuario->setNomprod($NomProducto);
         $objUsuario->setPreciosinigv($PrecioSinIgv);
         $objUsuario->setIgvproducto($Productoigv);
+        $objUsuario->setIcbperprod($SumICBPER);
         $objUsuario->setPrecioventa($PrecioVenta);
         $objUsuario->setCantidadproducto($Cantidad);
 

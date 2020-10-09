@@ -188,7 +188,8 @@ class Producto extends Conexion
                         descripcion,
                         cod_producto,
                         precio,
-                        inafecto
+                        tipo_impuesto as inafecto,
+                        (if(cod_producto='000000000001',(SELECT ICBPER FROM `datos_empresa`),'0')) as ICBPER
                     from
                         al_producto
                 ";

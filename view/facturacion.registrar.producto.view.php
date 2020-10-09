@@ -67,13 +67,13 @@ $_POST["s_usuario"] = $dniSesion;
                                                     </div>
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <select id="opccategoria" class="form-control">
-                                                        <option id="000" value="000">Seleccione categoria</option>
+                                                    <select id="opctipo" class="form-control">
+                                                        <option id="000" value="000">Seleccione tipo</option>
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3">
-                                                    <select id="opctipo" class="form-control">
-                                                        <option id="000" value="000">Seleccione tipo</option>
+                                                    <select id="opccategoria" class="form-control">
+                                                        <option id="000" value="000">Seleccione categoria</option>
                                                     </select>
                                                 </div>
                                                 <div class="input-group mb-3">

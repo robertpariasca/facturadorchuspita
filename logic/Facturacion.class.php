@@ -14,6 +14,7 @@ class Facturacion extends Conexion
     private $inafecto;
     private $exonerado;
     private $igv;
+    private $ICBPER;
     private $total;
     private $fechaemision;
     private $horaemision;
@@ -132,6 +133,16 @@ class Facturacion extends Conexion
         $this->igv = $igv;
     }
 
+    public function getICBPER()
+    {
+        return $this->ICBPER;
+    }
+
+    public function setICBPER($ICBPER)
+    {
+        $this->ICBPER = $ICBPER;
+    }
+
     public function getTotal()
     {
         return $this->total;
@@ -179,6 +190,7 @@ class Facturacion extends Conexion
                                     :p_inafecto,
                                     :p_exonerado,
                                     :p_igv,
+                                    :p_icbper,
                                     :p_total,
                                     :p_fechaemision,
                                     :p_horaemision
@@ -194,6 +206,7 @@ class Facturacion extends Conexion
                     $sentencia->bindParam(":p_inafecto", $this->getInafecto());
                     $sentencia->bindParam(":p_exonerado", $this->getExonerado());
                     $sentencia->bindParam(":p_igv", $this->getIgv());
+                    $sentencia->bindParam(":p_icbper", $this->getICBPER());
                     $sentencia->bindParam(":p_total", $this->getTotal());
                     $sentencia->bindParam(":p_fechaemision", $this->getFechaemision());
                     $sentencia->bindParam(":p_horaemision", $this->getHoraemision());
