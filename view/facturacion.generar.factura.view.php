@@ -127,7 +127,7 @@ $_POST["s_usuario"] = $dniSesion;
 
 
                                                 <div class="input-group mb-3">
-                                                    <input type="text" name="textRuc" id="textRuc" class="form-control" required="" placeholder="N° Ruc"  onkeypress="ValidaSoloNumeros();" maxlength="8">
+                                                    <input type="text" name="textRuc" id="textRuc" class="form-control" required="" placeholder="N° Ruc" onkeypress="ValidaSoloNumeros();" maxlength="8">
                                                     <div class="input-group-append">
                                                         <div class="input-group-text">
                                                             <span class="fas fa-user"></span>
@@ -158,8 +158,25 @@ $_POST["s_usuario"] = $dniSesion;
                                                             <h3 class="box-title">Detalles Documento</h3>
                                                         </div>
                                                         <div class="input-group mb-3 row justify-content-between">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="tipobusqueda" id="chknombre" value="0" checked>
+                                                                <label class="form-check-label" for="chknombre">
+                                                                   Por Nombre
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="tipobusqueda" id="chkcodigo" value="1">
+                                                                <label class="form-check-label" for="chkcodigo">
+                                                                    Por Código
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group mb-3 row justify-content-between">
                                                             <div class="col-12 autocomplete">
                                                                 <input id="textproducto" class="form-control" type="text" name="textproducto" placeholder="Producto">
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input id="textproductobarcode" class="form-control" type="hidden" name="textproductobarcode" placeholder="Codigo">
                                                             </div>
                                                             <input id="codproducto" type="hidden" name="codproducto" placeholder="Producto">
                                                             <input id="txtinafecto" type="hidden" name="txtinafecto">

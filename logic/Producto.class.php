@@ -189,12 +189,37 @@ class Producto extends Conexion
                         cod_producto,
                         precio,
                         tipo_impuesto as inafecto,
-                        (if(cod_producto='000000000001',(SELECT ICBPER FROM `datos_empresa`),'0')) as ICBPER
+                        (if(cod_producto='000000000001',(SELECT icbper FROM `ficha_empresa`),'0')) as ICBPER
                     from
                         al_producto
                 ";
 
             $sentencia = $this->dblink->prepare($sql);
+            $sentencia->execute();
+            $resultado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (Exception $exc) {
+            throw $exc;
+        }
+    }
+    public function listarBarcode()
+    {
+        try {
+            $sql = "
+                    select
+                        descripcion,
+                        cod_producto,
+                        precio,
+                        tipo_impuesto as inafecto,
+                        (if(cod_producto='000000000001',(SELECT icbper FROM `ficha_empresa`),'0')) as ICBPER
+                    from
+                        al_producto
+                    where
+                        cod_barra_producto = :p_barcode
+                ";
+
+            $sentencia = $this->dblink->prepare($sql);
+            $sentencia->bindParam(":p_barcode", $this->getCodbarraproducto());
             $sentencia->execute();
             $resultado = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             return $resultado;

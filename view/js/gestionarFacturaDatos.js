@@ -1,5 +1,51 @@
 $(document).ready(function () {
   cargarvalores();
+
+  
+var nombre;
+
+$('input[name=textproductobarcode]').on('keydown', function(evt) {
+  if (evt.key === 'Tab') {
+
+    $.post("../controller/gestionarFactura.cargar.productos.controller.php",
+    {
+      p_barcode: $("#textproductobarcode").val(),
+    })
+      .done(function (resultado) {
+        var datosJSON = resultado;
+  
+        if (datosJSON.estado === 200) {
+          var prods = resultado.datos;
+
+          document.getElementById("codproducto").value = prods[0].cod_producto;
+          document.getElementById("textPrecioProducto").value = parseFloat(
+            prods[0].precio
+          ).toFixed(2);
+          document.getElementById("txtinafecto").value = prods[0].inafecto;
+          document.getElementById("txticbper").value = prods[0].ICBPER;
+
+          //autocomplete(document.getElementById("textproducto"), prods);
+  
+          /*
+            for (i = 0; i < resultado.datos.length; i++) {
+              var o = new Option(
+                resultado.datos[i].descripcion_tipo,
+                resultado.datos[i].codigo_tipo
+              );
+              $(o).html(resultado.datos[i].descripcion_tipo);
+              $("#opctipo").append(o);
+            }
+            */
+        } else {
+        }
+      })
+      .fail(function (error) {
+        var datosJSON = $.parseJSON(error.responseText);
+        //swal("Error", datosJSON.mensaje , "error");
+      });
+  }
+});
+
 });
 
 function cargarvalores() {
@@ -92,6 +138,7 @@ function autocomplete(inp, arr) {
           /*close the list of autocompleted values,
                   (or any other open lists of autocompleted values:*/
           closeAllLists();
+          $("#textCantProducto").focus();
         });
         a.appendChild(b);
       }
@@ -206,6 +253,7 @@ $("#agregarDetalleProm").click(function () {
     $("#detprod tbody").append(adicion);
     sumardetalle();
     $("#textproducto").val("");
+    $("#textproductobarcode").val("");
     $("#codproducto").val("");
     $("#textCantProducto").val("0.00");
     $("#textPrecioProducto").val("0.00");
@@ -245,5 +293,25 @@ $('input:radio[name="tipodoc"]').change(function () {
     $("#textRuc").attr("maxlength", "11");
     $("#textRuc").val("");
     $("#textRuc").focus();
+  }
+});
+
+$('input:radio[name="tipobusqueda"]').change(function () {
+  if ($(this).val() == "0") {
+    $("#textproducto").attr("type", "text");
+    $("#textproductobarcode").attr("type", "hidden");
+    $("#textproducto").val("");
+    $("#textproductobarcode").val("");
+    $("#codproducto").val("");
+    $("#textCantProducto").val("0.00");
+    $("#textPrecioProducto").val("0.00");
+  } else {
+    $("#textproducto").attr("type", "hidden");
+    $("#textproductobarcode").attr("type", "text");
+    $("#textproducto").val("");
+    $("#textproductobarcode").val("");
+    $("#codproducto").val("");
+    $("#textCantProducto").val("0.00");
+    $("#textPrecioProducto").val("0.00");
   }
 });

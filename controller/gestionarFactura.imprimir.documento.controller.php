@@ -65,7 +65,7 @@ try {
   <table class="info_derecha" width="100%" border="1" cellpadding="0" cellspacing="0">
     <tr >
       <td class="logo_margin" rowspan="3" align="left">  
-      <img src="../images/birdy.png" width="150"   height="75"> <br>
+      <img src="../images/chuspita.png" width="150"   height="75"> <br>
         '.$datosempresa[0]["razon_social"].'<br />
        <br>
         '.$datosempresa[0]["direccion"].'<br />
@@ -103,10 +103,10 @@ $html.='
       <table  class="tabla_venta">
         <thead>
           <tr>
-            <th class="desc">CANT</th>
-            <th>DESCRIPCION</th>
-            <th>PRECIO UNIT.</th>
-            <th>IMPORTE</th>
+            <th class="desc" width="15%" style="font-size:5px">CNT.</th>
+            <th width="55%" style="font-size:5px">DESCRIPCION</th>
+            <th width="15%" style="font-size:5px">P. Unit</th>
+            <th width="15%" style="font-size:5px">TOT</th>
           </tr>
         </thead>
         <tbody>';
@@ -115,9 +115,9 @@ $html.='
     foreach ($datosdetalle as $data) {
       $tot = number_format(floatval($data["cantidad_producto"]) * floatval($data["precio_venta"]),2,".","");
         $html.='  <tr>
-            <td class="desc"  align="right" >'.number_format($data["cantidad_producto"],2,'.','').'</td>
-            <td class="unit"  align="left" >'.$data["nom_producto"].'</td>
-            <td class="qty"  align="right" >'.number_format($data["precio_venta"],2,'.','').'</td>
+            <td class="desc"  align="right">'.number_format($data["cantidad_producto"],2,'.','').'</td>
+            <td class="unit"  align="left">'.$data["nom_producto"].'</td>
+            <td class="qty"  align="right">'.number_format($data["precio_venta"],2,'.','').'</td>
             <td class="total"  align="right">'.$tot.'</td>
           </tr>
           ';
@@ -190,8 +190,8 @@ $html.='
   </tr>
   <tr>
   <td></td>
-    <td><div align="center">TOT. PERCEPCION</div></td>
-    <td align="right"><div align="right">S/ 0.00</div></td>
+    <td><div align="center">TOT. ICBPER</div></td>
+    <td align="right"><div align="right">S/ '.number_format($datoscliente[0]["ICBPER"],2,'.','').'</div></td>
   </tr>
   <tr>
   <td></td>
@@ -213,24 +213,30 @@ $html.='
 $html.='
 
   <tr>
-    <td colspan="3"><b>REPRESENTACION IMPRESA DE LA  '.$NomTipoDoc.' ELECTRONICA</b></td>
+    <td colspan="3"><b>REPRESENTACION IMPRESA GENERADA DEL FACTURADOR SUNAT</b></td>
     
   </tr>
   <tr>
-    <td>
+ 
+    
 
-    '.$imgQR.'
+    
     </td>
+    <td width="20%">&nbsp;</td>
   </tr>
   ';
 
 $html.='
-  <tr>
-    <td>&nbsp;</td>
-    <td><div align="center"></div></td>
-    <td><div align="center"></div></td>
-  </tr>
 
+</table>
+<table  class="ultima_tabla" width="100%" border="0">
+<tr>
+    <td align="center">'.$imgQR.'
+
+    
+    </td>
+
+  </tr>
 </table>
 
   </body>

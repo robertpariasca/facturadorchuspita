@@ -236,6 +236,7 @@ class Facturacion extends Conexion
                         inafecto,
                         exonerado,
                         igv,
+                        ICBPER,
                         total,
                         fecha_emision,
                         hora_emision
