@@ -21,7 +21,7 @@
   <div class="card">
     <div class="">
       <div class="login-logo">
-          <img src="../images/birdy.png" class="img img-responsive center-block" width="200"><br/>
+          <img src="../images/chuspita.png" class="img img-responsive center-block" width="200"><br/>
         <!-- <img src="../images/user3.jpg" class="img img-responsive center-block" width="150"> -->
       </div>
         <div class="card-body login-card-body" style="display:block;" id = "iniciarSesion">

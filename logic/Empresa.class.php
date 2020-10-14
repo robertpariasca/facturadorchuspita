@@ -47,9 +47,10 @@ class Empresa extends Conexion
                     select
                         ruc,
                         nombre as razon_social,
-                        direccion
+                        direccion,
+                        telefono
                     from
-                    ficha_empresa
+                        ficha_empresa
                 ";
 
             $sentencia = $this->dblink->prepare($sql);

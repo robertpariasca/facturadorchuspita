@@ -29,6 +29,7 @@ try {
     $objDetalle->setNrodoc($NroDoc);
     $datosdetalle = $objDetalle->listar();
     
+    $TamañoDoc = "140";
    //$html=$datosempresa[0]["ruc"];
 
     if($TipoDoc=="01"){
@@ -65,10 +66,12 @@ try {
   <table class="info_derecha" width="100%" border="1" cellpadding="0" cellspacing="0">
     <tr >
       <td class="logo_margin" rowspan="3" align="left">  
-      <img src="../images/chuspita.png" width="150"   height="75"> <br>
+      <img src="../images/chuspita.png" width="150"   height="75"> <br style="font-size:5px">
         '.$datosempresa[0]["razon_social"].'<br />
-       <br>
+       <br style="font-size:5px">
         '.$datosempresa[0]["direccion"].'<br />
+        <br style="font-size:5px">
+        Cel: '.$datosempresa[0]["telefono"].'<br />
   
   </td>
       <td class="arriba"><b> R.U.C. '.$datosempresa[0]["ruc"].'</b></td>
@@ -103,10 +106,10 @@ $html.='
       <table  class="tabla_venta">
         <thead>
           <tr>
-            <th class="desc" width="15%" style="font-size:5px">CNT.</th>
-            <th width="55%" style="font-size:5px">DESCRIPCION</th>
-            <th width="15%" style="font-size:5px">P. Unit</th>
-            <th width="15%" style="font-size:5px">TOT</th>
+            <th width="15%" style="font-size:4px">Cant.</th>
+            <th width="55%" style="font-size:5px">Descripcion</th>
+            <th width="15%" style="font-size:4px">P. Unit</th>
+            <th width="15%" style="font-size:4px">Total</th>
           </tr>
         </thead>
         <tbody>';
@@ -114,6 +117,7 @@ $html.='
 
     foreach ($datosdetalle as $data) {
       $tot = number_format(floatval($data["cantidad_producto"]) * floatval($data["precio_venta"]),2,".","");
+      $TamañoDoc = $TamañoDoc + 10;
         $html.='  <tr>
             <td class="desc"  align="right">'.number_format($data["cantidad_producto"],2,'.','').'</td>
             <td class="unit"  align="left">'.$data["nom_producto"].'</td>
@@ -244,7 +248,7 @@ $html.='
 
 /*Creacion Ticket*/
 
-    $mpdf = new \Mpdf\Mpdf(['format' => [72, 170], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
+    $mpdf = new \Mpdf\Mpdf(['format' => [72, $TamañoDoc], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
     $mpdf->page=0;
     $mpdf->state=0;
     $mpdf->WriteHTML($html);

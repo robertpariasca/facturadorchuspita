@@ -1,13 +1,19 @@
 $(document).ready(function () {
   cargarvalores();
-
-  
+  $("#detprod tbody>tr").remove();
+  $( "#textproductobarcode" ).focus(function() {
+  $("#textproducto").val("");
+    $("#textproductobarcode").val("");
+    $("#codproducto").val("");
+    $("#textCantProducto").val("0.00");
+    $("#textPrecioProducto").val("0.00");
+  });
 var nombre;
 
 $('input[name=textproductobarcode]').on('keydown', function(evt) {
   if (evt.key === 'Tab') {
 
-    $.post("../controller/gestionarFactura.cargar.productos.controller.php",
+    $.post("../controller/gestionarFactura.cargar.productos.barcode.controller.php",
     {
       p_barcode: $("#textproductobarcode").val(),
     })
@@ -18,6 +24,8 @@ $('input[name=textproductobarcode]').on('keydown', function(evt) {
           var prods = resultado.datos;
 
           document.getElementById("codproducto").value = prods[0].cod_producto;
+          document.getElementById("textproducto").value = prods[0].descripcion;
+          document.getElementById("textproductobarcode").value = prods[0].descripcion;
           document.getElementById("textPrecioProducto").value = parseFloat(
             prods[0].precio
           ).toFixed(2);
@@ -139,6 +147,7 @@ function autocomplete(inp, arr) {
                   (or any other open lists of autocompleted values:*/
           closeAllLists();
           $("#textCantProducto").focus();
+          $("#textCantProducto").val("");
         });
         a.appendChild(b);
       }
@@ -223,7 +232,7 @@ $("#agregarDetalleProm").click(function () {
   ).toFixed(2);
   var inafecto = $("#txtinafecto").val();
 
-  if (textproducto == "" || codproducto == "" || textCantProducto == "") {
+  if (codproducto == "" || textCantProducto == "") {
     alert("Por favor, completar todos los campos");
   } else {
     var adicion =
