@@ -34,7 +34,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../util/dist/js/demo.js"></script>
 <!--sweetalert-->
-<script src="../util/plugins/swa/sweetalert-dev.js"></script>
+<!--<script src="../util/plugins/swa/sweetalert-dev.js"></script>-->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="../util/plugins/datatables/jquery.dataTables.js"></script>
 
 

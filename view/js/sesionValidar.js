@@ -58,7 +58,6 @@ function listar() {
 
 $("#frmgrabar").submit(function (event) {
     event.preventDefault();
-
                     $.post(
                             "../controller/sesion.validar.controller.php",
                             {

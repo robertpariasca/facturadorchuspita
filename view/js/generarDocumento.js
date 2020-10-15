@@ -5,15 +5,26 @@ $("#frmGenerarDocumento").submit(function (event) {
     {
       title: "Confirme",
       text: "¿Esta seguro de generar este documento?",
-      showCancelButton: true,
       confirmButtonColor: "#3d9205",
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
-      closeOnConfirm: false,
-      closeOnCancel: true,
-      imageUrl: "../images/pregunta.png",
-    },
-    function (isConfirm) {
+      buttons: ["No", "Si"],
+      buttons: {
+        cancel: {
+          text: "No",
+          value: null,
+          visible: false,
+          className: "",
+          closeModal: true,
+        },
+        confirm: {
+          text: "Si",
+          value: true,
+          visible: true,
+          className: "",
+          closeModal: false
+        }
+      },
+      icon: "../images/pregunta.png",
+    }).then(function (isConfirm) {
       if (isConfirm) {
         var tipodoc = $("input[name='tipodoc']:checked").val();
         var serie = "";
