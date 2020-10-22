@@ -32,17 +32,26 @@ try {
     $TamañoDoc = "140";
    //$html=$datosempresa[0]["ruc"];
 
+   $TxtTipoDoc = "";
+   $TxtTipoNom = "";
+
     if($TipoDoc=="01"){
         $NomTipoDoc = "FACTURA";
         $TipoDocCliente = "6";
+        $TxtTipoDoc = "RUC:";
+        $TxtTipoNom = "RAZON SOCIAL:";
     }else{
         $NomTipoDoc = "BOLETA";
         $TipoDocCliente = "1";
+        $TxtTipoDoc = "DNI:";
+        $TxtTipoNom = "NOMBRE:";
     }
+
+    
 
     $nomdoc = $SerieDoc.'-'.$NroDoc;
     $fechaemision = $datoscliente[0]["fecha_emision"];
-    $dividir = explode('[/.-]', $fechaemision);
+    $dividir = explode('-', $fechaemision);
     $nuefecha = $dividir[2].'-'.$dividir[1].'-'.$dividir[0];
 
 
@@ -63,27 +72,23 @@ try {
       <header >
             <main>
   
-  <table class="info_derecha" width="100%" border="1" cellpadding="0" cellspacing="0">
+  <table class="tabla_cabecera" width="100%" cellpadding="0" cellspacing="0" border="0">
     <tr >
-      <td class="logo_margin" rowspan="3" align="left">  
-      <img src="../images/chuspita.png" width="150"   height="75"> <br style="font-size:5px">
-        '.$datosempresa[0]["razon_social"].'<br />
-       <br style="font-size:5px">
-        '.$datosempresa[0]["direccion"].'<br />
-        <br style="font-size:5px">
-        Cel: '.$datosempresa[0]["telefono"].'<br />
-  
-  </td>
-      <td class="arriba"><b> R.U.C. '.$datosempresa[0]["ruc"].'</b></td>
+      <td>'.$datosempresa[0]["razon_social"].'</td>
     </tr>
+    <tr>
+      <td > DIR. FISCAL:'.$datosempresa[0]["direccion"].' </td>
+    </tr>
+    <tr >
+    <td>R.U.C. '.$datosempresa[0]["ruc"].'</td>
+  </tr>
     <tr>
       <td> <b>  '.$NomTipoDoc.' ELECTRONICA </b> </td>
     </tr>
-    <tr >
-      <td class="sinpad"> <b>  '.$SerieDoc.'-'.$NroDoc.' </b>  </td>
-    </tr>
+    <tr>
+    <td> <b>  '.$SerieDoc.'-'.$NroDoc.'</b> </td>
+  </tr>
   </table>
-   <br>
 
 ';
 $html.='
@@ -91,25 +96,30 @@ $html.='
 
 <table  class="info_medio" width="100%" height="50%" border="0" >
   <tr> 
-    <td  ><b>SEÑOR(ES):</b> '.$datoscliente[0]["razon_social"].'</td>
-    <td  align="right"> <b> Nro Doc : </b> '.$datoscliente[0]["nro_ruc"] .'</td>
+    <td  >Fecha:'.$nuefecha.' </td>
+    <td div align="right">Hora:'.$datoscliente[0]["hora_emision"].'</td>
+  </tr>
+  <tr> 
+    <td colspan="2" >'.$TxtTipoNom.' '.$datoscliente[0]["razon_social"].' </td>
   </tr>
   <tr>
-     <td > <b> DIRECCION:</b> '.$datoscliente[0]["direccion"].' </td>
-    <td align="right"> <b> FECHA DE EMISION:</b> '.$datoscliente[0]["fecha_emision"].' </td>
+     <td colspan="2"> DIRECCION: '.$datoscliente[0]["direccion"].' </td>
   </tr>
+  <tr>
+    <td colspan="2">'.$TxtTipoDoc.' '.$datoscliente[0]["nro_ruc"].' </td>
+</tr>
 </table>  <br>
 
 ';
 $html.='
     </header>
-      <table  class="tabla_venta">
+      <table  class="tabla_venta" cellpadding="0" cellspacing="0" border="0">
         <thead>
           <tr>
-            <th width="15%" style="font-size:4px">Cant.</th>
-            <th width="55%" style="font-size:5px">Descripcion</th>
-            <th width="15%" style="font-size:4px">P. Unit</th>
-            <th width="15%" style="font-size:4px">Total</th>
+            <th width="15%" style="font-size:7px">Cant.</th>
+            <th width="55%" style="font-size:7px">Descripcion</th>
+            <th width="15%" style="font-size:7px">P. Unit</th>
+            <th width="15%" style="font-size:7px">Total</th>
           </tr>
         </thead>
         <tbody>';
@@ -157,23 +167,19 @@ $html.='
 
 <table  class="ultima_tabla" width="100%" border="0">
  
-  <tr>
-    <td width="40%"><b></b></td>
-    <td width="40%"><div align="center">TOT. GRAVADO</div></td>
+  <tr width="100%">
+    <td width="80%"><div align="center">TOT. GRAVADO</div></td>
     <td align="right" width="20%"><div align="right"> S/ '.number_format($datoscliente[0]["gravado"],2,'.','').'</div></td>
   </tr>
   <tr>
-    <td></td>
     <td><div align="center">TOT. INAFECTO</div></td>
     <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["inafecto"],2,'.','').'</div></td>
   </tr>
   <tr>
-    <td></td>
     <td><div align="center">TOT. EXONERADO</div></td>
     <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["exonerado"],2,'.','').'</div></td>
   </tr>
   <tr>
-    <td></td>
     <td><div align="center">TOT. RECARGO</div></td>
     <td align="right"><div align="right">S/ 0.00</div></td>
   </tr>
@@ -181,34 +187,28 @@ $html.='
 
     $html.='
   <tr>
-    <td></td>
     <td><div align="center">TOT. DSCTO</div></td>
     <td align="right"><div align="right">S/ 0.00</div></td>
   </tr>
   ';
 $html.='
   <tr>
-  <td></td>
     <td><div align="center">IGV (18%)</div></td>
     <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["igv"],2,'.','').'</div></td>
   </tr>
   <tr>
-  <td></td>
     <td><div align="center">TOT. ICBPER</div></td>
     <td align="right"><div align="right">S/ '.number_format($datoscliente[0]["ICBPER"],2,'.','').'</div></td>
   </tr>
   <tr>
-  <td></td>
     <td><div align="center">IMP. TOTAL</div></td>
     <td align="right"><div align="right"> S/ '.number_format($datoscliente[0]["total"],2,'.','').'</div></td>
   </tr>
   <tr>
-  <td></td>
     <td><div align="center"></div></td>
     <td><div align="center"></div></td>
   </tr>
   <tr>
-  <td></td>
     <td><div align="center"></div></td>
     <td><div align="center"></div></td>
   </tr>
@@ -217,17 +217,10 @@ $html.='
 $html.='
 
   <tr>
-    <td colspan="3"><b>REPRESENTACION IMPRESA GENERADA DEL FACTURADOR SUNAT</b></td>
-    
+    <td align="center" colspan="2"><b>REPRESENTACION IMPRESA GENERADA DEL FACTURADOR SUNAT</b></td>
+   
   </tr>
-  <tr>
- 
-    
 
-    
-    </td>
-    <td width="20%">&nbsp;</td>
-  </tr>
   ';
 
 $html.='
@@ -241,6 +234,13 @@ $html.='
     </td>
 
   </tr>
+ 
+</table>
+
+<table  class="ultima_tabla" width="100%" border="0">
+<tr><td align="center" colspan="2"><b>LA CHUSPITA, TU BODEGUITA ONLINE</b></td></tr>
+  
+<tr><td align="center" colspan="2"><b>GRACIAS POR SU PREFERENCIA</b></td></tr>
 </table>
 
   </body>
@@ -248,7 +248,7 @@ $html.='
 
 /*Creacion Ticket*/
 
-    $mpdf = new \Mpdf\Mpdf(['format' => [72, $TamañoDoc], 'margin_left' => 0,'margin_right' => 0,'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
+    $mpdf = new \Mpdf\Mpdf(['format' => [72, $TamañoDoc], 'margin_left' => "3mm",'margin_right' => "3mm",'margin_top' => 0,'margin_bottom' => 0,'margin_header' => 0,'margin_footer' => 0]);
     $mpdf->page=0;
     $mpdf->state=0;
     $mpdf->WriteHTML($html);
